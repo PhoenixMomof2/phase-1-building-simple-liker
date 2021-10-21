@@ -2,7 +2,32 @@
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
-// Your JavaScript code goes here!
+const heartIcons = document.getElementsByClassName("like-glyph")
+
+function likeComment(e){
+  const heart = e.target
+mimicServerCall() 
+  .then(() => {
+    if (heart.innerText === EMPTY_HEART) {
+      heart.innerText = FULL_HEART
+      heart.className = "activated-heart"
+    }
+    else{
+      heart.innerText = EMPTY_HEART
+      heart.className = ""
+    }
+  })
+  .catch((error) => {
+    const modal = document.getElementById("modal")
+    modal.className = ""
+    modal.innerText = error
+    setTimeout(() => modal.className = "hidden", 3000)
+  })
+}
+
+for (const emojis of heartIcons)
+emojis.addEventListener("click", likeComment)
+
 
 
 
